@@ -30,7 +30,7 @@
 
     handleClick (e) {
 
-      this.$dispatch('click', e)
+      this.$emit('click', e)
     }
   }
 </script>
