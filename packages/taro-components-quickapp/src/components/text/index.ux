@@ -1,0 +1,40 @@
+<template>
+  <text
+    class="{{className}}"
+    onclick="handleClick"
+  >
+  </text>
+</template>
+
+<script>
+  import { mergeProps } from '../../libs/utils'
+
+  export default {
+
+    props: ['className'],
+
+    propsDefault: {
+      className: 'taro_text'
+
+    },
+
+    data: () => ({
+
+    }),
+
+    onInit () {
+      mergeProps(this)
+    },
+
+    handleClick (e) {
+
+      this.$dispatch('click', e)
+    }
+  }
+</script>
+
+<style>
+  .taro_text {
+
+  }
+</style>

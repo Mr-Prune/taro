@@ -1,0 +1,36 @@
+<template>
+  <div class="{{className}} taro-{{size}}">
+    <image src="{{src}}" alt="{{alt}}" onclick="handleClick"></image>
+  </div>
+</template>
+
+<script>
+  import { mergeProps } from '../../libs/utils'
+
+  export default {
+
+    props: ['size', 'src', 'alt', 'className'],
+
+    propsDefault: {
+      size: 'sm',
+      alt: 'image',
+      className: 'taro_image'
+    },
+
+    onInit () {
+      mergeProps(this)
+    },
+
+    handleClick () {
+      this.$emit('click')
+    }
+  }
+</script>
+
+<style>
+  .taro_image {
+    width: 300px;
+    height: 300px;
+  }
+
+</style>

@@ -1,0 +1,52 @@
+<template>
+  <div class="{{className}}">
+    <input
+      placeholder="{{placeholder}}"
+      value="{{inputValue}}"
+      name="{{name}}"
+      maxlength="{{maxlength}}"
+      type="{{type}}"
+      enterkeytype="{{enterkeytype}}"
+      onchange="onInput"
+    />
+  </div>
+</template>
+
+<script>
+  import { mergeProps } from '../../libs/utils'
+
+  export default {
+
+    props: ['type', 'placeholder', 'value', 'name', 'maxlength', 'enterkeytype', 'className'],
+
+    propsDefault: {
+      placeholder: '请输入...',
+      type: 'text',
+      value: '',
+      name: 'input',
+      enterkeytype: 'default',
+      maxlength: 10,
+      className: 'taro_input'
+    },
+
+    data: () => ({
+      inputValue: ''
+    }),
+
+    onInit () {
+      mergeProps(this)
+      this.inputValue = this.value
+    },
+
+    onInput ({ value }) {
+      this.inputValue = value
+      this.$dispatch('input', { value: value })
+    }
+  }
+</script>
+
+<style>
+  .taro_input {
+
+  }
+</style>
