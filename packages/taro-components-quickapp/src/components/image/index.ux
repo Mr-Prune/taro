@@ -3,7 +3,7 @@
     src="{{src}}"
     alt="{{alt}}"
     id="{{id}}"
-    class="{{className}}"
+    class="taro_image {{className}}"
     style="{{style}}"
     resize-mode="{{model}}"
     @click="handleClick">
@@ -35,18 +35,13 @@
       style: {
         type: Object,
         required: false,
-        default: 'width: 250px; height: 200px;'
+        default: {}
       },
       model: {
         type: String,
         required: false,
         default: 'scaleToFill'
       }
-    },
-    propsDefault: {
-      alt: 'taro-img',
-      model: 'scaleToFill',
-      style: 'width: 250px; height: 200px;'
     },
 
     data: () => ({
