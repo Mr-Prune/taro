@@ -1,0 +1,69 @@
+<template>
+  <richtext
+    class="{{className}}"
+    style="{{style}}"
+    type="{{type}}"
+    @focus="handleFocus"
+    @longpress="handleLongPress"
+    @blur="handleBlur"
+    @click="handleClick">
+    {{nodes}}
+  </richtext>
+</template>
+
+<script>
+
+  export default {
+
+    props: {
+      type: {
+        type: String,
+        required: false,
+        default: 'html'
+      },
+      className: {
+        type: String,
+        required: false,
+        default: 'taro_rich_text'
+      },
+      id: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      style: {
+        type: Object,
+        required: false,
+        default: {}
+      },
+      nodes: {
+        type: String,
+        required: true,
+        default: ''
+      }
+    },
+
+    handleClick(e) {
+      this.$emit('click', e)
+    },
+
+    handleFocus () {
+      this.$emit('focus', e)
+    },
+
+    handleBlur () {
+      this.$emit('blur', e)
+    },
+
+    handleLongPress (e) {
+      this.$emit('longpress', e)
+    }
+  }
+</script>
+
+<style>
+  .taro_rich_text {
+    padding: 30px;
+    background-color: #ffffff;
+  }
+</style>

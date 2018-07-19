@@ -1,28 +1,77 @@
 <template>
-  <div class="{{className}} taro-{{size}}">
-    <image src="{{src}}" alt="{{alt}}" onclick="handleClick"></image>
-  </div>
+  <image
+    src="{{src}}"
+    alt="{{alt}}"
+    id="{{id}}"
+    class="{{className}}"
+    style="{{style}}"
+    resize-mode="{{model}}"
+    @click="handleClick">
+  </image>
 </template>
 
 <script>
-  import { mergeProps } from '../../libs/utils'
 
   export default {
-
-    props: ['size', 'src', 'alt', 'className'],
-
+    props: {
+      src: {
+        type: String,
+        required: true
+      },
+      alt: {
+        type: String,
+        required: false,
+        default: 'taro-img'
+      },
+      className: {
+        type: String,
+        required: false,
+        default: 'taro_image'
+      },
+      id: {
+        type: String,
+        required: false
+      },
+      style: {
+        type: Object,
+        required: false,
+        default: 'width: 250px; height: 200px;'
+      },
+      model: {
+        type: String,
+        required: false,
+        default: 'scaleToFill'
+      }
+    },
     propsDefault: {
-      size: 'sm',
-      alt: 'image',
-      className: 'taro_image'
+      alt: 'taro-img',
+      model: 'scaleToFill',
+      style: 'width: 250px; height: 200px;'
     },
 
+    data: () => ({
+      resizeModel: 'contain'
+    }),
+
     onInit () {
-      mergeProps(this)
+      switch (this.model) {
+        case 'scaleToFill':
+          this.resizeMode = 'contain'
+          break;
+        case  'widthFix':
+          this.resizeMode = 'cover'
+          break;
+        default:
+          this.resizeMode = 'contain'
+     }
     },
 
     handleClick () {
       this.$emit('click')
+    },
+
+    handleError () {
+      this.$emit('error')
     }
   }
 </script>

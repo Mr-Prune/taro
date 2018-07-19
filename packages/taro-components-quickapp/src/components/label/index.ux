@@ -1,12 +1,11 @@
 <template>
-  <div
+  <label
     class="{{className}}"
     style="{{style}}"
-    disabled="{{disabled}}"
-    id="{{id}}"
+    target="{{target}}"
     @click="handleClick">
     <slot></slot>
-  </div>
+  </label>
 </template>
 
 <script>
@@ -17,20 +16,17 @@
       className: {
         type: String,
         required: false,
-        default: 'taro_view'
-      },
-      id: {
-        type: String,
-        required: false
+        default: 'taro_label'
       },
       style: {
+        type: Object,
+        required: false,
+        default: {}
+      },
+      target: {
         type: String,
         required: false,
-      },
-      disabled: {
-        type: Boolean,
-        required: false,
-        default: false
+        default: ''
       }
     },
 
@@ -49,8 +45,7 @@
 </script>
 
 <style>
-  .taro_view {
+  .taro_label {
 
   }
-
 </style>

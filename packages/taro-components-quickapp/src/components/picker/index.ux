@@ -1,0 +1,109 @@
+<template>
+  <picker
+   class="{{className}}"
+   id="{{id}}"
+   type="{{type}}"
+   value="{{selectValue}}"
+   selected="{{selected}}"
+   disabled="{{disabled}}"
+   range="{{range}}"
+   start="{{start}}"
+   end="{{end}}"
+   @change="handleChange"
+   @cancel="handleCancel">
+  </picker>
+</template>
+
+<script>
+
+  export default {
+
+    props: {
+      className: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      id: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      range: {
+        type: Array,
+        required: false,
+        default: false
+      },
+      mode: {
+        type: String,
+        required: true,
+        default: 'selector'
+      },
+      value: {
+        type: Number,
+        required: false,
+        default: 0
+      },
+      disabled: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      start: {
+        type: String,
+        required: false,
+        default: '1970-1-1'
+      },
+      end: {
+        type: String,
+        required: false,
+        default: '2100-12-31'
+      },
+    },
+
+    data: () => ({
+      type: 'text',
+      selectValue: '',
+      selected: 0,
+    }),
+
+    onInit () {
+
+      switch (this.mode) {
+        case 'selector':
+          this.type = 'text'
+          this.selected = this.value
+          this.selectValue = this.range[this.value]
+          break;
+        case 'multiSelector':
+          this.selected = this.value
+          this.type = 'multi-text'
+          break;
+        case 'time':
+          this.type = 'time'
+          break;
+        case 'date':
+          this.type = 'date'
+          break;
+        default:
+          this.type = 'text'
+      }
+    },
+
+    handleChange (e) {
+      e.detail.value = e.value
+      this.$emit('change', e)
+    },
+
+    handleCancel () {
+      this.$emit('cancel')
+    }
+
+  }
+</script>
+
+<style>
+  .taro_picker {
+
+  }
+</style>

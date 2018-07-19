@@ -1,0 +1,81 @@
+<import name="radio" src="./index.ux"></import>
+
+<template>
+  <div class="taro_checkbox_group {{className}}">
+    <block for="item in list">
+      <radio value='{{item.value}}' checked="{{item.checked}}" @change="handleCheck"></radio>
+    </block>
+  </div>
+</template>
+
+<script>
+  export default {
+
+    name: 'checkboxGroup',
+    props: {
+      id: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      className: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      style: Object,
+      target: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      checked: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      list: {
+        type: Array,
+        required: true,
+        default: []
+      },
+
+    },
+
+    data: () => ({
+      currentValue: []
+    }),
+
+    onInit () {
+      this.currentValue = this.list
+      // this.$on('change', this.handleChange)
+    },
+
+    onReady () {
+      // this.$watch('currentValue', this.handleChange)
+    },
+
+    handleChange () {
+      // this.$emit('change', this.currentValue.map((item)=>{item.checked}))
+    },
+
+    handleCheck (e) {
+      this.currentValue.forEach((item) => {
+        if (item.value === e.detail.value) {
+          item.checked = e.checked
+        }
+      })
+      this.$emit('change', this.currentValue.map((item) => {
+        return item.checked === true
+      }))
+    }
+  }
+</script>
+
+<style>
+  .taro_checkbox_group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+</style>

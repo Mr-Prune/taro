@@ -1,0 +1,109 @@
+<template>
+  <div class="taro-overlay">
+    <div class="taro_overlay_test {{className}}" style="background-color: {{background}}" show="{{visible}}" @click="overlayClick">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<style>
+  @keyframes taroOverlayenter {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes taroOverlayleave {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .taro-overlay-enter {
+    animation-name: taroOverlayenter;
+  }
+
+  .taro-overlay-leave {
+    animation-name: taroOverlayleave;
+  }
+
+  .taro-overlay .taro_overlay_test {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+  }
+
+  .taro-overlay > div > div {
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<script>
+  /**
+   *   show: true/false,   //是否显示
+   *   background: 'rgba(0,0,0,.4)',   //遮罩层背景色
+   *   autoClose: true/false  //点击遮罩层是否自动关闭
+   */
+  export default {
+
+    props: {
+      show: {
+        type: Boolean,
+        retarored: false,
+        default: false
+      },
+      background: {
+        type: String,
+        retarored: false,
+        default: 'rgba(0,0,0,.4)'
+      },
+      autoClose: {
+        type: Boolean,
+        retarored: false,
+        default: true
+      }
+    },
+    data () {
+      return {
+        visible: false,
+        className: ''
+      }
+    },
+    onInit () {
+      this.$watch('show', 'updateShow')
+    },
+
+    updateShow () {
+      if (this.show) {
+        clearTimeout(this.timeoutId)
+
+        if (this.option.show) {
+          this.visible = true
+          this.className = 'taro-overlay-enter'
+        } else {
+          this.className = 'taro-overlay-leave'
+          this.timeoutId = setTimeout(() => {
+            this.visible = false
+          }, 500)
+        }
+      }
+    },
+    overlayClick () {
+      this.option.autoClose && (this.option.show = false)
+      this.$emit('click')
+    }
+  }
+</script>
