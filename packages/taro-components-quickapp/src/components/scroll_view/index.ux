@@ -1,18 +1,17 @@
 <template>
-  <div class="taro_list">
-    <list
-      class="{{className}}"
-      id="{{id}}"
-      style="{{listStyle}}"
-      scrollpage="{{scrollPage}}"
-      @scroll="handleScroll"
-      @scrolltop="handleScrollTop"
-      @scrollbottom="handleScrollBottom">
-      <!-- 列表元素，属性type值相同时，需要确保渲染中dom结构相同 -->
-      <slot></slot>
-    </list>
 
-  </div>
+  <list
+    class="taro_list {{className}}"
+    id="{{id}}"
+    style="{{listStyle}}"
+    scrollpage="{{scrollPage}}"
+    @scroll="handleScroll"
+    @scrolltop="handleScrollTop"
+    @scrollbottom="handleScrollBottom">
+     列表元素，属性type值相同时，需要确保渲染中dom结构相同
+    <slot></slot>
+  </list>
+
 </template>
 
 <script>
@@ -31,9 +30,9 @@
         default: ''
       },
       style: {
-        type: String,
+        type: Object,
         required: false,
-        default: ''
+        default: {}
       },
       disabled: {
         type: Boolean,
@@ -42,31 +41,36 @@
       },
       scrollX: {
         type: Boolean,
-        required: false
+        required: false,
+        default: false
       },
       scrollY: {
         type: Boolean,
-        required: false
+        required: false,
+        default: true
       }
     },
 
     data: () => ({
-      listStyle: ''
+      listStyle: {}
     }),
 
     onInit () {
       let direction = scrollX
-      this.listStyle = `${this.style} columns:${columns};flex-direction: ${direction} `
+      this.listStyle = Object.assign(this.style, { 'columns': `${columns}`, 'color: ': this.direction })
+      this.$on('scrolltop', this.handleScrollToUpper)
+      this.$on('scroll', this.handleScroll)
+      this.$on('scrollbottom', this.handleScrollBottom)
     },
 
     handleScroll (e) {
       this.$emit('scroll', e)
     },
     handleScrollBottom () {
-
+      this.$emit('scrollToLower', e)
     },
-    handleScrollTop () {
-
+    handleScrollToUpper () {
+      this.$emit('scrollToUpper', e)
     }
   }
 </script>

@@ -56,7 +56,6 @@
 
     onInit () {
       this.inputValue = this.value
-      console.log(6666666)
     },
 
     handleChange ({ value }) {

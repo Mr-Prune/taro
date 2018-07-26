@@ -1,9 +1,11 @@
 <template>
-  <text
+  <div
     class="{{className}}"
+    id="{{id}}"
+    style="{{style}}"
     @click="handleClick">
     <slot></slot>
-  </text>
+  </div>
 </template>
 
 <script>
@@ -15,7 +17,17 @@
         type: String,
         required: false,
         default: 'taro_text'
-      }
+      },
+      id: {
+        type: String,
+        required: false,
+        default: ''
+      },
+      style: {
+        type: Object,
+        required: false,
+        default: {}
+      },
     },
 
     data: () => ({
