@@ -78,7 +78,11 @@
           this.photoUrl = res.uri
         },
         fail: (erromsg, errocode) => {
-        this.$emit('error')
+          if (parseInt(errocode, 10) === 201) {
+            this.$emit('error')
+          } else {
+            this.$emit('stop')
+          }
           prompt.showToast({
             message: `${errocode}: ${erromsg}`
           })

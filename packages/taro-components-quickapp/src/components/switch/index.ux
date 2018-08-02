@@ -11,6 +11,7 @@
       disabled="{{disabled}}"
       @change="handleChange"
     />
+
     <switch
       else
       class="{{className}}"
