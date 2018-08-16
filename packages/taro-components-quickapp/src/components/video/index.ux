@@ -16,8 +16,8 @@
       @seeking="handleSeeking"
       @seeked="handleSeeked"
       @timeupdate="handleTimeUpdate"
-      @fullscreenchange="">
-    </video>>
+      @fullscreenchange="handleFullScreen">
+    </video>
   </div>
 </template>
 
@@ -33,11 +33,12 @@
       },
       id: {
         type: String,
-        required: false
+        required: false,
+        default: ''
       },
       src: {
         type: String,
-        required: false,
+        required: true,
       },
       controls: {
         type: Boolean,
@@ -57,6 +58,7 @@
       poster: {
         type: String,
         required: false,
+        default: ''
       },
       initialTime: {
         type: Number,
@@ -64,8 +66,9 @@
         default: 0
       },
       style: {
-        type: String,
+        type: Object,
         required: false,
+        default: {}
       },
     },
 
@@ -74,7 +77,7 @@
     }),
 
     onInit () {
-      this.initialTime && this.setCurrentTime(this.initialTime)
+
     },
 
     handlePrepared () {
@@ -107,6 +110,10 @@
 
     handleTimeUpdate (currentTime) {
       this.$emit('timeUpdate', currentTime)
+    },
+
+    handleFullScreen (e) {
+      this.$emit('fullscreenchange', e)
     }
 
   }
