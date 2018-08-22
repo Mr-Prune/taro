@@ -82,7 +82,7 @@
 
     onInit () {
       this.progressStyle = Object.assign(this.style, { 'background': this.backgroundColor,
-        'color:': this.activeColor, 'stroke-width:': this.strokeWidth })
+        'color': this.activeColor, 'stroke-width': `${this.strokeWidth}`px })
     },
 
     handleClick (e) {
